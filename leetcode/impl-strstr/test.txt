@@ -1,0 +1,8 @@
+"hello"
+"ll"
+"aaaab"
+"aa"
+"abb"
+"abaaa"
+"aaaaa"
+"bba"
