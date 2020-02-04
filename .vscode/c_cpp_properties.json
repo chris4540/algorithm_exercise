@@ -1,0 +1,23 @@
+{
+    "configurations": [
+        {
+            "name": "MSYS",
+            "includePath": [
+                "${workspaceFolder}/**",
+                "C:/msys64/usr/lib/gcc/x86_64-pc-msys/9.1.0/include/c++/**",
+                "C:/msys64/usr/include/**"
+            ],
+            "defines": [
+                "_DEBUG",
+                "UNICODE",
+                "_UNICODE"
+            ],
+            "windowsSdkVersion": "10.0.18362.0",
+            "compilerPath": "C:/msys64/usr/bin/gcc",
+            "cStandard": "c11",
+            "cppStandard": "c++11",
+            "intelliSenseMode": "clang-x64"
+        }
+    ],
+    "version": 4
+}
