@@ -1,17 +1,13 @@
-#include "element.hpp"
-
+template <typename V>
 class Vertex {
 public:
-    Element* e_ptr;
-    Vertex(Element* e) {
-        e_ptr = e;
-    };
+    V element;
+    Vertex(V val):
+        element(val){};
     void incidentEdges() {};
-    bool isAdjacentTo(const Vertex& s) {
-        return false;
-    };
+    bool isAdjacentTo(const Vertex& s) { return false;};
 
-    Element& operator*() {
-        return *e_ptr;
+    V& operator*() {
+        return element;
     }
 };

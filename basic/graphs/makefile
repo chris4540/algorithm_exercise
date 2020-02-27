@@ -2,7 +2,7 @@ CXX=g++
 CXXFLAGS= -Wall -Warray-bounds -fbounds-check
 INCLUDE= -I./includes
 
-main: main.o
+main.x: main.o
 	g++ $(CXXFLAGS) -o $@ $<
 
 .cpp.o:
@@ -10,4 +10,4 @@ main: main.o
 
 .PHONY: clean
 clean:
-	@rm -f *.o *.exe
+	@rm -f *.o *.x

@@ -33,12 +33,16 @@
 // }
 #include <iostream>
 #include "vertex.hpp"
+#include <string>
 
 using namespace std;
 
 int main(int argc, char* argv[]) {
-   Element e = Element("u");
-   Vertex v = Vertex(&e);
-   cout << (*v).name << endl;
+
+   string s = "chris";
+
+   Vertex<string> v = Vertex<string>(s);
+   bool test = ((*v) == s);
+   cout <<  test << endl;
    return 0;
 }
