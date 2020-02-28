@@ -31,18 +31,18 @@
 //    add_edge(adj_list, 5, 4);
 //    displayAdjList(adj_list, v);
 // }
+#include <graph.hpp>
 #include <iostream>
-#include "vertex.hpp"
 #include <string>
 
 using namespace std;
 
-int main(int argc, char* argv[]) {
+int main(int argc, char *argv[]) {
 
-   string s = "chris";
-
-   Vertex<string> v = Vertex<string>(s);
-   bool test = ((*v) == s);
-   cout <<  test << endl;
-   return 0;
+    EdgeListGraph<string, string> g;
+    // EdgeListGraph<string, string> g = EdgeListGraph<string, string>();
+    Vertex<string> v1("u");
+    Vertex<string> v2("v");
+    string e1("a");
+    g.insertEdge(v1, v2, e1);
 }

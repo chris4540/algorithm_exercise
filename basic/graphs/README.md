@@ -34,4 +34,11 @@ https://github.com/carterene/data-and-algo
 https://github.com/Lukas713/dataStructuresAndAlgorithms/blob/master/OOP/Graph/dijkstraAlgorithm.cpp
 
 # Testing
-https://github.com/catchorg/Catch2
+We use catch2 as it is a simple framework [link](https://github.com/catchorg/Catch2)
+
+```bash
+$ git clone https://github.com/catchorg/Catch2.git
+$ cd Catch2
+$ cmake -Bbuild -H. -DBUILD_TESTING=OFF
+$ sudo cmake --build build/ --target install
+```

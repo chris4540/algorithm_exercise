@@ -1,12 +1,25 @@
-// the graph Abstract data type
+#include <iostream>
+#include "edge.hpp"
+#include "vertex.hpp"
 
+using namespace std;
+template <typename V, typename E>
 class Graph {
-   public:
-      // Return a vertex list of all the vertices of the graph
-    //   virtual vectors<> vertices() = 0;
+  public:
+    Graph() { cout << "Calling Graph Constr." << endl;};
+    void virtual print() = 0;
+    void virtual insertEdge(
+        const Vertex<V> &u, const Vertex<V> &v, const E &element) = 0;
+};
 
-   private:
-      double length;      // Length of a box
-      double breadth;     // Breadth of a box
-      double height;      // Height of a box
+template <typename V, typename E>
+class EdgeListGraph : public Graph<V, E> {
+  public:
+    EdgeListGraph() { cout << "Calling EdgeListGraph Constr." << endl;}
+    void insertEdge(const Vertex<V> &u, const Vertex<V> &v, const E &element) {
+        cout << "Helloworld" << endl;
+    };
+    void print() {
+        cout << "Helloworld" << endl;
+    };
 };
