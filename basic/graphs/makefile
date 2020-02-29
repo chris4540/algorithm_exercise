@@ -1,5 +1,5 @@
 CXX=g++
-CXXFLAGS= -Wall -Warray-bounds -fbounds-check
+CXXFLAGS= -Wall -Warray-bounds -fbounds-check -std=c++2a
 INCLUDE= -I./includes
 
 main.x: main.o

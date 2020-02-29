@@ -41,8 +41,9 @@ int main(int argc, char *argv[]) {
 
     EdgeListGraph<string, string> g;
     // EdgeListGraph<string, string> g = EdgeListGraph<string, string>();
-    Vertex<string> v1("u");
-    Vertex<string> v2("v");
-    string e1("a");
-    g.insertEdge(v1, v2, e1);
+    // Vertex<string> v1("u");
+    // Vertex<string> v2("v");
+    // string e1("a");
+    // g.insertEdge(v1, v2, e1);
+    g.insertEdge(string("u"), string("v"), string("a"));
 }
