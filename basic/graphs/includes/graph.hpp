@@ -45,7 +45,7 @@ class EdgeListGraph : public AbstractGraph<V, E> {
           vert_1 = new Vertex<V>(u);       // create a new obj in heap
           vertexList.insert({u, vert_1});  // save it
         } else {
-          vert_1 = it->second;
+          vert_1 = it->second;             // get the pointer
         }
         // to the same thing
         it = vertexList.find(v);
@@ -64,7 +64,7 @@ class EdgeListGraph : public AbstractGraph<V, E> {
         edgeList.insert({edge_val, edge});
     };
   public:
-    vector<Edge<V, E>*> getEdges(){
+    vector<Edge<V, E>*> edges(){
       // Notes: There is no array of reference. But array of pointers
       vector<Edge<V, E>*> ret;
 
@@ -82,6 +82,24 @@ class EdgeListGraph : public AbstractGraph<V, E> {
         cout << **vertices.first << " -- " << **vertices.second;
         cout << endl;
       }
+    };
+
+    Edge<V, E>* getEdgeBy(const E& key){
+      Edge<V, E>* ret = nullptr;
+
+      auto it = edgeList.find(key);
+      if (it != edgeList.end()){
+        ret = it->second;
+      }
+      return ret;
+    };
+    Vertex<V>* getVertexBy(const V& key){
+      Vertex<V>* ret = nullptr;
+      auto it = vertexList.find(key);
+      if (it != vertexList.end()){
+        ret = it->second;
+      }
+      return ret;
     };
 };
 

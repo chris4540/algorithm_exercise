@@ -11,7 +11,7 @@ TEST_CASE( "Extract Edges from graph", "[Edges]" ) {
     EdgeListGraph<string, string> g;
     g.insertEdge(string("vertex_called_u"), string("vertex_called_v"), string("edge_called_a"));
 
-    auto edges = g.getEdges();
+    auto edges = g.edges();
     auto edge = edges[0];
     auto vertices = edge->endVertices();
 

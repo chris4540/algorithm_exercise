@@ -13,6 +13,11 @@ int main(int argc, char *argv[]) {
     g.insertEdge(string("u"), string("w"), string("c"));
     g.insertEdge(string("w"), string("z"), string("d"));
 
-    g.print();
+    // g.print();
 
+    auto e = g.getEdgeBy(string("d"));
+    auto v = g.getVertexBy(string("w"));
+    auto u = (*e).opposite(v);
+
+    cout << **u << endl;
 }
