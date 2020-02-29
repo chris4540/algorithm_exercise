@@ -35,15 +35,32 @@ class EdgeListGraph : public AbstractGraph<V, E> {
       }
     }
     void insertEdge(V u, V v, E edge_val) {
-        // Vertex<V>* vert_1 = new Vertex<V>(u);
-        Vertex<V>* vert_1(new Vertex<V>(u));
-        Vertex<V>* vert_2(new Vertex<V>(v));
 
+        // Consider vertex
+        Vertex<V>* vert_1;
+        Vertex<V>* vert_2;
+        auto it = vertexList.find(u);
+        if (it == vertexList.end()){
+          // vertex not exists in the vertexList
+          vert_1 = new Vertex<V>(u);       // create a new obj in heap
+          vertexList.insert({u, vert_1});  // save it
+        } else {
+          vert_1 = it->second;
+        }
+        // to the same thing
+        it = vertexList.find(v);
+        if (it == vertexList.end()){
+          vert_2 = new Vertex<V>(v);
+          vertexList.insert({v, vert_2});
+        } else {
+          vert_2 = it->second;
+        }
+
+        // create the edge
         Edge<V, E>* edge = new Edge<V, E>(*vert_1, *vert_2, edge_val);
-
         // insert them to internal collections
         vertexList.insert({u, vert_1});
-        vertexList.insert({v, vert_2});
+
         edgeList.insert({edge_val, edge});
     };
   public:
@@ -56,7 +73,16 @@ class EdgeListGraph : public AbstractGraph<V, E> {
       }
       return ret;
     };
-    void print() {};
+    void print() {
+      // print the edge list
+      cout << "Edge List: " << endl;
+      for (auto const& [key, val] : edgeList){
+        auto vertices = val->endVertices();
+        cout << "Edge " << key << ": ";
+        cout << **vertices.first << " -- " << **vertices.second;
+        cout << endl;
+      }
+    };
 };
 
 // Graph Implementation using adjacency list
