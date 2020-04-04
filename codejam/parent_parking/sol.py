@@ -111,24 +111,32 @@ if __name__ == "__main__":
             period = tuple(period)
             slots.append(period)
         # ---------------------------
+        sorted_idx = [i  for i, t in sorted(enumerate(slots), key=lambda t:t[1][0])]
         # make two priority queue
         cameron_pq = list()
         jamie_pq = list()
 
-        decision = ""
-
-        for period in slots:
+        decision = "" 
+        sch_slots = dict()
+        
+        for i in sorted_idx:
+            period = slots[i]
             # try insert to cameron_pq
             inserted = insert_to_pq(cameron_pq, period)
             if inserted:
-                decision += "C"
+                sch_slots[i] = "C"
+                # decision += "C"
             else:
                 # try insert to jamie_pq
                 inserted = insert_to_pq(jamie_pq, period)
                 if inserted:
-                    decision += "J"
+                    sch_slots[i] = "J"
+                    # decision += "J"
                 else:
                     decision = "IMPOSSIBLE"
                     break
-
+        
+        if decision != "IMPOSSIBLE":
+            for i in range(len(slots)):
+                decision += sch_slots[i]
         print("Case #{}: {}".format(case, decision))
