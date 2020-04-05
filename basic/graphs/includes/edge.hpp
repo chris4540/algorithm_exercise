@@ -13,8 +13,8 @@ class Edge {
     Vertex<V>* endVertex;
     E element;
   public:
-    Edge(Vertex<V>& start,  Vertex<V>& end, const E& val):
-        startVertex(&start), endVertex(&end), element(val){};
+    Edge(Vertex<V>* start,  Vertex<V>* end, const E& val):
+        startVertex(start), endVertex(end), element(val){};
     E& operator*() {
       return element;
     }

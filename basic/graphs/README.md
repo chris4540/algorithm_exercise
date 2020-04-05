@@ -1,7 +1,9 @@
 # Graphs and related algorithms
 
-## Programming language  
-c++ 
+Working in progress!!!!
+
+## Programming language
+c++
 
 ## Reference book
 Data Structures & Algorithms in C++ Goodrich
@@ -42,3 +44,8 @@ $ cd Catch2
 $ cmake -Bbuild -H. -DBUILD_TESTING=OFF
 $ sudo cmake --build build/ --target install
 ```
+
+### Impl. details
+1. Move semantics (link)[https://stackoverflow.com/a/3109981]
+2. Copy-and-Swap Idiom (link1)[https://www.geeksforgeeks.org/copy-swap-idiom-c/] (link2)[https://stackoverflow.com/a/3279550]
+3. https://www.learncpp.com/cpp-tutorial/15-3-move-constructors-and-move-assignment/

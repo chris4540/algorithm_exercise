@@ -3,6 +3,7 @@
 #include <map>
 #include <vector>
 #include <memory>
+#include <list>
 #include "edge.hpp"
 #include "vertex.hpp"
 
@@ -57,7 +58,7 @@ class EdgeListGraph : public AbstractGraph<V, E> {
         }
 
         // create the edge
-        Edge<V, E>* edge = new Edge<V, E>(*vert_1, *vert_2, edge_val);
+        Edge<V, E>* edge = new Edge<V, E>(vert_1, vert_2, edge_val);
         // insert them to internal collections
         vertexList.insert({u, vert_1});
 
@@ -106,10 +107,49 @@ class EdgeListGraph : public AbstractGraph<V, E> {
 // Graph Implementation using adjacency list
 template <typename V, typename E>
 class AdjacencyListGraph : public AbstractGraph<V, E> {
-    // TODO
+    public:
+      // constructor
+      AdjacencyListGraph() {};
+      // forward declarations
+      class Vertex;
+      class Edge;
+      void print() {};
+    private:
+      // implement the vertex edge collection using map
+      map<E, Edge*> edgeList;
+      map<V, Vertex*> vertexList;
+
+    public:
+      // vertex impl.
+      class Vertex {
+        private:
+          V element;
+          list<Edge*> IncidentEdgeList;
+        public:
+          Vertex(V val): element(val){};
+          list<Edge*> getIncidentEdges() const {
+            list<Edge*> ret;
+          };
+          bool isAdjacentTo(const Vertex& s) { return false;};
+          V& operator*() { return element;}
+          V operator*() const {return element;}
+      };
+      // edge impl.
+      class Edge {
+        private:
+          Vertex* startVertex;
+          Vertex* endVertex;
+          E element;
+        public:
+          Edge(Vertex* start,  Vertex* end, const E& val):
+            startVertex(start), endVertex(end), element(val){};
+      };
+
+
+
 };
 
-template <typename V, typename E>
-class AdjacencyMapGraph : public AbstractGraph<V, E> {
-    // TODO
-};
+// template <typename V, typename E>
+// class AdjacencyMapGraph : public AbstractGraph<V, E> {
+//     // TODO
+// };
