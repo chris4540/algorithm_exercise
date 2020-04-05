@@ -2,7 +2,6 @@
 Outline:
 1. insert parantheses according to digits depth (relaxation)
 2. merging anti-paranthese pairs {i.e. ")(" } recusively (constraints)
-
 """
 import re
 
