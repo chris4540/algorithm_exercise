@@ -6,7 +6,9 @@ def countSwaps(a):
     arr_len = len(a)
 
     for i in range(arr_len):
-        for j in range(arr_len-1):
+        # Notes: As the end must the maxiumn
+        #        sort it from 0 to n-i-1
+        for j in range(arr_len-i-1):
             if (a[j] > a[j+1]):
                 # ---------------
                 # swap them
