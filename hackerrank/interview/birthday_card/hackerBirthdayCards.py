@@ -1,5 +1,7 @@
 
 """
+HackerCards for Leanne
+
 Time Complexity: O(d + n) where n is the size of collection
 
 Used greedy approach
@@ -20,7 +22,7 @@ def hackerCards(collection, d):
             if col_ptr < len(collection)-1:
                 col_ptr += 1
             else:
-                # buy it
+                # buy it when loop overed all collections
                 ret.append(i)
                 budget -= i
                 i += 1
@@ -30,6 +32,7 @@ def hackerCards(collection, d):
             budget -= i
             i += 1
     return ret
+
 
 if __name__ == '__main__':
 
