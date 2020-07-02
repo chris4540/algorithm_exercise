@@ -47,6 +47,9 @@ Not completed yet
 #     return ret
 
 def get_median_from_idx_cnt(idx_cnt_arr, window_size):
+    """
+    TODO: fix this function
+    """
     mid = window_size // 2
     # two pointers to find high and low for the median
     if window_size % 2 == 1:
