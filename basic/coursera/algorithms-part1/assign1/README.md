@@ -1,3 +1,7 @@
+# Algorithm and application with disjoint-set data structure
+
+[Wiki](https://en.wikipedia.org/wiki/Disjoint-set_data_structure)
+
 ## **Specification**
 
 Here is the programming 
