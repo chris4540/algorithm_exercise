@@ -43,21 +43,22 @@ public class Percolation {
     }
 
     // opens the site (row, col) if it is not open already
+    // Notes: row, col ~ [1...n]
     public void open(int row, int col) {
         // if the site is already opened, just return
-        if (this.grid[row][col]) {
+        if (this.grid[row - 1][col - 1]) {
             return;
         }
-        this.grid[row][col] = true;
+        this.grid[row - 1][col - 1] = true;
         this.numOpenSites += 1;
 
         // get the index of the site representing in disjointSet
         int idx = convertToDisjointSetIdx(row, col);
-        if (row == 0) {
+        if (row == 1) {
             // union the first row element with the virtual top
             this.disjointSet.union(this.virtualTopIdx, idx);
         }
-        if (row == this.gridSize - 1) {
+        if (row == this.gridSize) {
             // union the last row element with the virtual top
             this.disjointSet.union(this.virtualBottomIdx, idx);
         }
@@ -71,9 +72,9 @@ public class Percolation {
             int i = shiftInRow[s];
             int j = shiftInCol[s];
             // check if out of boundary
-            if (row + i < 0 || col + j < 0)
+            if (row + i < 1 || col + j < 1)
                 continue;
-            if (row + i >= gridSize || col + j >= gridSize)
+            if (row + i > gridSize || col + j > gridSize)
                 continue;
 
             if (this.isOpen(row + i, col + j)) {
@@ -95,14 +96,13 @@ public class Percolation {
         // 16 17 18 19 20
         // 21 22 23 24 25
         // 26
-        int ret = row * this.gridSize + col;
-        ret += 1;
+        int ret = (row - 1) * this.gridSize + col;
         return ret;
     }
 
     // is the site (row, col) open?
     public boolean isOpen(int row, int col) {
-        return this.grid[row][col];
+        return this.grid[row - 1][col - 1];
     }
 
     // is the site (row, col) full?
@@ -124,24 +124,6 @@ public class Percolation {
         return this.numOpenSites;
     }
 
-    /*
-     * Helper function to show the grid
-     */
-    public void showGrid() {
-        int n = this.gridSize;
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < n; j++) {
-                if (isOpen(i, j)) {
-                    System.out.print("O");
-                } else {
-                    System.out.print("X");
-                }
-                System.out.print(" ");
-            }
-            System.out.print("\n");
-        }
-    }
-
     // does the system percolate?
     public boolean percolates() {
         if (disjointSet.find(virtualTopIdx) == disjointSet.find(virtualBottomIdx)) {
@@ -150,16 +132,39 @@ public class Percolation {
         return false;
     }
 
+    // /*
+    // * Helper function to show the grid
+    // */
+    // public void showGrid() {
+    //     int n = this.gridSize;
+    //     for (int i = 1; i <= n; i++) {
+    //         for (int j = 1; j <= n; j++) {
+    //             if (isOpen(i, j)) {
+    //                 System.out.print("O");
+    //             } else {
+    //                 System.out.print("X");
+    //             }
+    //             System.out.print(" ");
+    //         }
+    //         System.out.print("\n");
+    //     }
+    // }
+
     // test client (optional)
     public static void main(String[] args) {
         int size = 5;
         Percolation sys = new Percolation(size);
-        sys.open(0, 2);
-        sys.open(1, 1);
-        sys.open(2, 0);
+        sys.open(1, 2);
+        sys.open(2, 1);
         sys.open(3, 1);
-        sys.open(4, 2);
-        sys.showGrid();
+        sys.open(4, 1);
+        sys.open(5, 2);
+        // sys.showGrid();
+        StdOut.printf("percolate? %b\n", sys.percolates());
+        StdOut.println("----------------------------------------");
+        sys.open(1, 1);
+        sys.open(5, 1);
+        // sys.showGrid();
         StdOut.printf("percolate? %b\n", sys.percolates());
     }
 }

@@ -29,14 +29,11 @@ public class PercolationStats {
             while (!system.percolates()) {
 
                 // draw the site location from uniform distribution
-                int row = StdRandom.uniform(0, n);
-                int col = StdRandom.uniform(0, n);
+                int row = StdRandom.uniform(1, n+1);
+                int col = StdRandom.uniform(1, n+1);
                 // open it
                 system.open(row, col);
             }
-            // StdOut.println("------------");
-            // system.showGrid();
-            // StdOut.println("------------");
             int numOpenedSites = system.numberOfOpenSites();
             numSitesToPercolate[t] = numOpenedSites;
         }
