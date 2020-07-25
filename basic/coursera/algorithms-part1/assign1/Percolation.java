@@ -1,4 +1,5 @@
 import edu.princeton.cs.algs4.WeightedQuickUnionUF;
+import edu.princeton.cs.algs4.StdOut;
 
 public class Percolation {
 
@@ -25,6 +26,7 @@ public class Percolation {
         }
 
         this.gridSize = n;
+        this.numOpenSites = 0;
 
         // initialize the grid with traditional nested for loop
         this.grid = new boolean[n][n];
@@ -43,6 +45,10 @@ public class Percolation {
 
     // opens the site (row, col) if it is not open already
     public void open(int row, int col){
+        // if the site is already opened, just return
+        if (this.grid[row][col]){
+            return;
+        }
         this.grid[row][col] = true;
         this.numOpenSites += 1;
 
@@ -60,18 +66,23 @@ public class Percolation {
         // try to connect up, down, left, and right
         int[] shiftInRow = {0,  0, 1, -1};
         int[] shiftInCol = {1, -1, 0,  0};
-        for (int i: shiftInRow){
-            for (int j: shiftInCol){
-                // check if out of boundary
-                if (row+i < 0 || col+j < 0) continue;
-                if (row+i >= gridSize || col+j >= gridSize) continue;
+        int nShift = Math.min(shiftInRow.length, shiftInCol.length);
+        // StdOut.println("======================================");
+        for (int s = 0; s < nShift; s++){
+            int i = shiftInRow[s];
+            int j = shiftInCol[s];
+            // check if out of boundary
+            if (row+i < 0 || col+j < 0) continue;
+            if (row+i >= gridSize || col+j >= gridSize) continue;
 
-                if (this.isOpen(row+i, col+j)){
-                    int neighborIdx = convertToDisjointSetIdx(row+i, col+j);
-                    this.disjointSet.union(idx, neighborIdx);
-                }
+            if (this.isOpen(row+i, col+j)){
+                // StdOut.printf("Connecting (%d, %d) to (%d, %d)\n",
+                //     row, col, row+i, col+j);
+                int neighborIdx = convertToDisjointSetIdx(row+i, col+j);
+                this.disjointSet.union(idx, neighborIdx);
             }
         }
+        // StdOut.println("======================================");
     }
 
     private int convertToDisjointSetIdx(int row, int col){
@@ -142,25 +153,14 @@ public class Percolation {
 
     // test client (optional)
     public static void main(String[] args){
-        int size = Integer.parseInt(args[0]);
-        Percolation percolation = new Percolation(size);
-        percolation.open(0, 2);
-        percolation.open(3, 2);
-        percolation.showGrid();
-
-        System.out.format(
-            "Is grid(3, 2) full? %b \n",
-            percolation.isFull(3, 2));
-        System.out.format(
-            "Is grid(0, 2) full? %b \n",
-            percolation.isFull(0, 2));
-        System.out.println("Does the system percolate? " + percolation.percolates());
-        System.out.println("--------------------------------------------");
-        percolation.open(1, 2);
-        percolation.open(2, 2);
-        percolation.open(4, 2);
-        percolation.open(3, 2);
-        percolation.showGrid();
-        System.out.println("Does the system percolate? " + percolation.percolates());
+        int size = 5;
+        Percolation sys = new Percolation(size);
+        sys.open(0, 2);
+        sys.open(1, 1);
+        sys.open(2, 0);
+        sys.open(3, 1);
+        sys.open(4, 2);
+        sys.showGrid();
+        StdOut.printf("percolate? %b\n", sys.percolates());
     }
 }

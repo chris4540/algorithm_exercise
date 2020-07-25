@@ -34,6 +34,9 @@ public class PercolationStats {
                 // open it
                 system.open(row, col);
             }
+            // StdOut.println("------------");
+            // system.showGrid();
+            // StdOut.println("------------");
             int numOpenedSites = system.numberOfOpenSites();
             numSitesToPercolate[t] = numOpenedSites;
         }
