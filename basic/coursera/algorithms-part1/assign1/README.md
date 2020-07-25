@@ -54,3 +54,20 @@ In addition to the autograder feedback (available for free via Coursera
 platform), you can pay to have a teaching assistant read and provide 
 personalized feedback on your submission 
 at [https://mooc.codepost.io](https://mooc.codepost.io/).
+
+
+## **Backwashing**
+After the system has percolated, my PercolationVisualizer colors in light blue
+all sites connected to open sites on the bottom (in addition to those connected
+to open sites on the top). Is this “backwash” acceptable?
+> No, this is likely a bug in Percolation. It is only a minor deduction 
+> (because it impacts only the visualizer and not the experiment to estimate 
+> the percolation threshold), so don’t go crazy trying to get this detail.
+> However, many students consider this to be the most challenging and 
+> creative part of the assignment (especially if you limit yourself to one 
+> union–find object).
+
+How to visualize backwashing
+```bash
+java-algs4 PercolationVisualizer  inputs/input10.txt
+```

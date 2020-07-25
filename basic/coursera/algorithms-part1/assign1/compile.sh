@@ -1,8 +1,4 @@
 #!/bin/bash
 
-# compile the precolation
-javac-algs4 Percolation.java
+javac-algs4 *.java
 
-
-# compile the statistic client
-javac-algs4 PercolationStats.java
