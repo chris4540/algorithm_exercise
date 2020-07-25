@@ -1,3 +1,4 @@
+
 /*
   The client of the homework
  */
@@ -11,10 +12,9 @@ public class PercolationStats {
     private int systemSize = -1;
 
     // perform independent trials on an n-by-n grid
-    public PercolationStats(int n, int trials){
+    public PercolationStats(int n, int trials) {
         if (n <= 0 || trials <= 0) {
-            throw new IllegalArgumentException(
-                "Size of percolation system and number of trials must be > 0");
+            throw new IllegalArgumentException("Size of percolation system and number of trials must be > 0");
         }
 
         // set the system size
@@ -23,7 +23,7 @@ public class PercolationStats {
         // allocate memory for the 1d array
         numSitesToPercolate = new int[trials];
 
-        for (int t = 0; t < trials; t++){   // the loop for Monte Carlo simulation
+        for (int t = 0; t < trials; t++) { // the loop for Monte Carlo simulation
             // Initialize all sites to be blocked
             Percolation system = new Percolation(n);
             while (!system.percolates()) {
@@ -43,36 +43,36 @@ public class PercolationStats {
     }
 
     // sample mean of percolation threshold
-    public double mean(){
+    public double mean() {
         // we divied the size after averging to have better numerical acc.
         double ret = StdStats.mean(numSitesToPercolate);
-        ret /= (double) systemSize*systemSize;
+        ret /= (double) systemSize * systemSize;
         return ret;
     }
 
     // sample standard deviation of percolation threshold
-    public double stddev(){
+    public double stddev() {
         double ret = StdStats.stddev(numSitesToPercolate);
-        ret /= (double) systemSize*systemSize;
+        ret /= (double) systemSize * systemSize;
         return ret;
     }
 
     // low endpoint of 95% confidence interval
-    public double confidenceLo(){
+    public double confidenceLo() {
         double trials = numSitesToPercolate.length;
         double ret = mean() - ((1.96 * stddev()) / Math.sqrt(trials));
         return ret;
     }
 
     // high endpoint of 95% confidence interval
-    public double confidenceHi(){
+    public double confidenceHi() {
         double trials = numSitesToPercolate.length;
         double ret = mean() + ((1.96 * stddev()) / Math.sqrt(trials));
         return ret;
     }
 
-   // test client (see below)
-    public static void main(String[] args){
+    // test client (see below)
+    public static void main(String[] args) {
         int size = Integer.parseInt(args[0]);
         int trials = Integer.parseInt(args[1]);
         PercolationStats sim = new PercolationStats(size, trials);

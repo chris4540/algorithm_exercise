@@ -17,12 +17,11 @@ public class Percolation {
     private int virtualBottomIdx = -1;
 
     /*
-        creates n-by-n grid, with all sites initially blocked
-    */
-    public Percolation(int n){
-        if (n < 1){
-            throw new IllegalArgumentException(
-                "the size of the grid should be greater then 0");
+     * creates n-by-n grid, with all sites initially blocked
+     */
+    public Percolation(int n) {
+        if (n < 1) {
+            throw new IllegalArgumentException("the size of the grid should be greater then 0");
         }
 
         this.gridSize = n;
@@ -30,23 +29,23 @@ public class Percolation {
 
         // initialize the grid with traditional nested for loop
         this.grid = new boolean[n][n];
-        for(int i = 0; i < n; i++){
-            for(int j = 0; j < n; j++){
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
                 // Initialize all sites to be blocked
                 this.grid[i][j] = false;
             }
         }
 
         // init. the disjointSet. plus two for 2 for the virtual top and bottom
-        this.disjointSet = new WeightedQuickUnionUF(n*n+2);
+        this.disjointSet = new WeightedQuickUnionUF(n * n + 2);
         this.virtualTopIdx = 0;
-        this.virtualBottomIdx = n*n+1;
+        this.virtualBottomIdx = n * n + 1;
     }
 
     // opens the site (row, col) if it is not open already
-    public void open(int row, int col){
+    public void open(int row, int col) {
         // if the site is already opened, just return
-        if (this.grid[row][col]){
+        if (this.grid[row][col]) {
             return;
         }
         this.grid[row][col] = true;
@@ -54,84 +53,87 @@ public class Percolation {
 
         // get the index of the site representing in disjointSet
         int idx = convertToDisjointSetIdx(row, col);
-        if (row == 0){
+        if (row == 0) {
             // union the first row element with the virtual top
             this.disjointSet.union(this.virtualTopIdx, idx);
         }
-        if (row == this.gridSize-1){
+        if (row == this.gridSize - 1) {
             // union the last row element with the virtual top
             this.disjointSet.union(this.virtualBottomIdx, idx);
         }
 
         // try to connect up, down, left, and right
-        int[] shiftInRow = {0,  0, 1, -1};
-        int[] shiftInCol = {1, -1, 0,  0};
+        int[] shiftInRow = { 0, 0, 1, -1 };
+        int[] shiftInCol = { 1, -1, 0, 0 };
         int nShift = Math.min(shiftInRow.length, shiftInCol.length);
         // StdOut.println("======================================");
-        for (int s = 0; s < nShift; s++){
+        for (int s = 0; s < nShift; s++) {
             int i = shiftInRow[s];
             int j = shiftInCol[s];
             // check if out of boundary
-            if (row+i < 0 || col+j < 0) continue;
-            if (row+i >= gridSize || col+j >= gridSize) continue;
+            if (row + i < 0 || col + j < 0)
+                continue;
+            if (row + i >= gridSize || col + j >= gridSize)
+                continue;
 
-            if (this.isOpen(row+i, col+j)){
-                int neighborIdx = convertToDisjointSetIdx(row+i, col+j);
+            if (this.isOpen(row + i, col + j)) {
+                int neighborIdx = convertToDisjointSetIdx(row + i, col + j);
                 this.disjointSet.union(idx, neighborIdx);
             }
         }
         // StdOut.println("======================================");
     }
 
-    private int convertToDisjointSetIdx(int row, int col){
+    private int convertToDisjointSetIdx(int row, int col) {
         // As the disjointSet has virtual top and bottom site, we need to convert
         // the index with this function
         // Example layout of 5-by-5 grid element for indexing in disjoint set
-        //           0        <----- virtual top
-        //   1   2   3   4   5
-        //   6   7   8   9  10
-        //  11  12  13  14  15
-        //  16  17  18  19  20
-        //  21  22  23  24  25
-        //          26
+        // 0 <----- virtual top
+        // 1 2 3 4 5
+        // 6 7 8 9 10
+        // 11 12 13 14 15
+        // 16 17 18 19 20
+        // 21 22 23 24 25
+        // 26
         int ret = row * this.gridSize + col;
         ret += 1;
         return ret;
     }
 
     // is the site (row, col) open?
-    public boolean isOpen(int row, int col){
+    public boolean isOpen(int row, int col) {
         return this.grid[row][col];
     }
 
     // is the site (row, col) full?
-    public boolean isFull(int row, int col){
+    public boolean isFull(int row, int col) {
         // If the input site connected to the virtual top, then it is full
 
         // get the index of the site representing in disjointSet
         int idx = convertToDisjointSetIdx(row, col);
-        if (disjointSet.find(virtualTopIdx) == disjointSet.find(idx)){
+        if (disjointSet.find(virtualTopIdx) == disjointSet.find(idx)) {
             return true;
-        } else {
-            return false;
         }
+
+        return false;
+
     }
 
     // returns the number of open sites
-    public int numberOfOpenSites(){
+    public int numberOfOpenSites() {
         return this.numOpenSites;
     }
 
     /*
-        Helper function to show the grid
+     * Helper function to show the grid
      */
-    public void showGrid(){
+    public void showGrid() {
         int n = this.gridSize;
-        for(int i = 0; i < n; i++){
-            for(int j = 0; j < n; j++){
-                if (isOpen(i, j)){
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                if (isOpen(i, j)) {
                     System.out.print("O");
-                } else{
+                } else {
                     System.out.print("X");
                 }
                 System.out.print(" ");
@@ -141,16 +143,15 @@ public class Percolation {
     }
 
     // does the system percolate?
-    public boolean percolates(){
-        if (disjointSet.find(virtualTopIdx) == disjointSet.find(virtualBottomIdx)){
+    public boolean percolates() {
+        if (disjointSet.find(virtualTopIdx) == disjointSet.find(virtualBottomIdx)) {
             return true;
-        } else {
-            return false;
         }
+        return false;
     }
 
     // test client (optional)
-    public static void main(String[] args){
+    public static void main(String[] args) {
         int size = 5;
         Percolation sys = new Percolation(size);
         sys.open(0, 2);
