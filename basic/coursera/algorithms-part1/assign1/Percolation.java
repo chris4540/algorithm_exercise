@@ -8,17 +8,17 @@ public class Percolation {
     private boolean[][] grid;
 
     // The grid size
-    private int gridWidth = -1;
+    final private int gridWidth;
     // the number of open sites
-    private int numOpenSites = 0;
+    private int numOpenSites;
 
     //
-    private WeightedQuickUnionUF disjointSet;
-    private int virtualTopIdx = -1;
-    private int virtualBottomIdx = -1;
+    final private WeightedQuickUnionUF disjointSet;
+    final private int virtualTopIdx;
+    final private int virtualBottomIdx;
 
-    // memorize if the system has percolated.
-    private boolean hasPercolated = false;
+    // // memorize if the system has percolated.
+    // private boolean hasPercolated = false;
 
     /*
      * creates n-by-n grid, with all sites initially blocked
@@ -30,7 +30,7 @@ public class Percolation {
 
         this.gridWidth = n;
         this.numOpenSites = 0;
-        this.hasPercolated = false;
+        // this.hasPercolated = false;
 
         // initialize the grid with traditional nested for loop
         this.grid = new boolean[n][n];
@@ -150,7 +150,7 @@ public class Percolation {
     // does the system percolate?
     public boolean percolates() {
         if (disjointSet.find(virtualTopIdx) == disjointSet.find(virtualBottomIdx)) {
-            this.hasPercolated = true;
+            // this.hasPercolated = true;
             return true;
         }
         return false;
@@ -159,7 +159,7 @@ public class Percolation {
     // /*
     // * Helper function to show the grid
     // */
-    public void showGrid() {
+    private void showGrid() {
         int n = this.gridWidth;
         for (int i = 1; i <= n; i++) {
             for (int j = 1; j <= n; j++) {
@@ -190,21 +190,6 @@ public class Percolation {
             sys.showGrid();
             StdOut.printf("isFull(%d, %d) = %b\n", row, col, sys.isFull(row, col));
         }
-
         sc.close();
-        // int size = 5;
-        // Percolation sys = new Percolation(size);
-        // sys.open(1, 2);
-        // sys.open(2, 1);
-        // sys.open(3, 1);
-        // sys.open(4, 1);
-        // sys.open(5, 2);
-        // // sys.showGrid();
-        // StdOut.printf("percolate? %b\n", sys.percolates());
-        // StdOut.println("----------------------------------------");
-        // sys.open(1, 1);
-        // sys.open(5, 1);
-        // // sys.showGrid();
-        // StdOut.printf("percolate? %b\n", sys.percolates());
     }
 }
