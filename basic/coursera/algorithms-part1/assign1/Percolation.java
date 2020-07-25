@@ -76,8 +76,6 @@ public class Percolation {
             if (row+i >= gridSize || col+j >= gridSize) continue;
 
             if (this.isOpen(row+i, col+j)){
-                // StdOut.printf("Connecting (%d, %d) to (%d, %d)\n",
-                //     row, col, row+i, col+j);
                 int neighborIdx = convertToDisjointSetIdx(row+i, col+j);
                 this.disjointSet.union(idx, neighborIdx);
             }

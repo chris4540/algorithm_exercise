@@ -50,20 +50,41 @@ public class PercolationStats {
         return ret;
     }
 
-    // // sample standard deviation of percolation threshold
-    // public double stddev(){}
+    // sample standard deviation of percolation threshold
+    public double stddev(){
+        double ret = StdStats.stddev(numSitesToPercolate);
+        ret /= (double) systemSize*systemSize;
+        return ret;
+    }
 
-    // // low endpoint of 95% confidence interval
-    // public double confidenceLo(){}
+    // low endpoint of 95% confidence interval
+    public double confidenceLo(){
+        double trials = numSitesToPercolate.length;
+        double ret = mean() - ((1.96 * stddev()) / Math.sqrt(trials));
+        return ret;
+    }
 
-    // // high endpoint of 95% confidence interval
-    // public double confidenceHi(){}
+    // high endpoint of 95% confidence interval
+    public double confidenceHi(){
+        double trials = numSitesToPercolate.length;
+        double ret = mean() + ((1.96 * stddev()) / Math.sqrt(trials));
+        return ret;
+    }
 
    // test client (see below)
-   public static void main(String[] args){
-       int size = Integer.parseInt(args[0]);
-       int trials = Integer.parseInt(args[1]);
-       PercolationStats sim = new PercolationStats(size, trials);
-       StdOut.printf("The mean = %f\n", sim.mean());
-   }
+    public static void main(String[] args){
+        int size = Integer.parseInt(args[0]);
+        int trials = Integer.parseInt(args[1]);
+        PercolationStats sim = new PercolationStats(size, trials);
+
+        double mean = sim.mean();
+        double stddev = sim.stddev();
+        double confLo = sim.confidenceLo();
+        double confHi = sim.confidenceHi();
+
+        // printout
+        StdOut.printf("mean                    = %.8f\n", mean);
+        StdOut.printf("stddev                  = %.8f\n", stddev);
+        StdOut.printf("95%% confidence interval = [%.8f, %.8f]\n", confLo, confHi);
+    }
 }
