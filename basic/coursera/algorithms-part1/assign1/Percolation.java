@@ -3,7 +3,7 @@ import edu.princeton.cs.algs4.WeightedQuickUnionUF;
 public class Percolation {
 
     // we use a 2d-array to represent the percolation grid
-    private boolean [][] grid;
+    private boolean[][] grid;
 
     // The grid size
     private int gridSize = -1;
