@@ -19,7 +19,7 @@ def fuse_stones(stones: str) -> str:
 
 def stone_alchemy(stones: str):
     n_stones = len(stones)
-    # print(stones, n_stones)
+
     if n_stones == 1:
         return "Y"
     elif len(set(stones)) == 1:
@@ -28,8 +28,6 @@ def stone_alchemy(stones: str):
     i = 0
     result_stones = []
     while (i < n_stones - 2):
-        # inputs = stones[i:i+3]
-        # print(i, inputs, result_stones)
         result = fuse_stones(stones[i:i+3])
         if result == "explosion":
             result_stones.append(stones[i])
@@ -37,6 +35,8 @@ def stone_alchemy(stones: str):
         else:
             result_stones.append(result)
             i += 3
+
+    # add back remainings
     while (i < n_stones):
         result_stones.append(stones[i])
         i += 1
@@ -49,9 +49,6 @@ if __name__ == "__main__":
     for i in range(n_cases):
         n_stones = input()
         stones = input()
-        cnt = Counter(stones)
-        keep = "A" if cnt["A"] < cnt["B"] else "B"
 
         print(f"Case #{i+1}: ", stone_alchemy(stones))
-
         # print(n_stones, stones)
