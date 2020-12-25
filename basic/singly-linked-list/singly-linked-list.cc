@@ -29,17 +29,10 @@ class MyLinkedList {
 
   /** Get the value of the index-th node in the linked list. If the index is invalid, return -1. */
   int get(int index) {
-    if (index < 0 || index > size) {
+    if (index < 0 || index >= size) {
       return -1;
     }
-    if (index == 0) return head->val;
-
-    SinglyListNode* traverse = head;
-    for (int i=0; i < index; ++i) {
-      traverse = traverse->next;
-    }
-    return traverse->val;
-    // return 0;
+    return getNode(index)->val;
   }
 
   /** Add a node of value val before the first element of the linked list. After the insertion, the new node will be the first node of the linked list. */
@@ -58,6 +51,7 @@ class MyLinkedList {
     SinglyListNode* node = new SinglyListNode(val);
     if (this->tail) {
       this->tail->next = node;
+      this->tail = node;
     } else {
       this->tail = node;
       this->head = node;
@@ -82,10 +76,7 @@ class MyLinkedList {
     }
     // insert a node
     SinglyListNode* node = new SinglyListNode(val);
-    SinglyListNode* traverse = head;
-    for (int i=1; i < index; ++i) {
-      traverse = traverse->next;
-    }
+    SinglyListNode* traverse = getNode(index-1);
     // Fix the new node next pointer
     node->next = traverse->next;
     traverse->next = node;
@@ -94,19 +85,33 @@ class MyLinkedList {
 
   /** Delete the index-th node in the linked list, if the index is valid. */
   void deleteAtIndex(int index) {
-    if (index > size || index < 0) return;
+    if (index >= size || index < 0) return;
+
+    SinglyListNode* to_be_delete;
+    // handle head
     if (index == 0) {
       // remove head
+      to_be_delete = head;
       head = head->next;
+      delete to_be_delete;
       --size;
       return;
     }
-    SinglyListNode* traverse = head;
-    for (int i=0; i < index-1; ++i) {
-      traverse = traverse->next;
+    // handle tail
+    if (index == size-1) {
+      // remove head
+      to_be_delete = tail;
+      auto prev_node = getNode(size-2);
+      tail = prev_node;
+      tail->next = nullptr;
+      delete to_be_delete;
+      --size;
+      return;
     }
-    SinglyListNode* to_be_delete = traverse->next;
-    traverse->next = traverse->next->next;
+
+    SinglyListNode* prev_node = getNode(index-1);
+    to_be_delete = prev_node->next;
+    prev_node->next = to_be_delete->next;
     delete to_be_delete;
     --size;
   }
@@ -122,7 +127,17 @@ class MyLinkedList {
       std::cout << "->";
       traverse = traverse->next;
     }
-    std::cout << std::endl;
+    std::cout << "x" << std::endl;
+  }
+ private:
+  SinglyListNode* getNode(int index) {
+    if (index == 0) return head;
+    if (index == size-1) return tail;
+    SinglyListNode* traverse = head;
+    for (int i=0; i < index; ++i) {
+      traverse = traverse->next;
+    }
+    return traverse;
   }
 };
 
@@ -138,15 +153,29 @@ class MyLinkedList {
 
 int main() {
   MyLinkedList linked_list = MyLinkedList();
+  // linked_list.addAtHead(7);
+  // linked_list.addAtHead(2);
+  // linked_list.addAtHead(1);
+  // linked_list.addAtIndex(3, 0);
+  // linked_list.deleteAtIndex(2);
+  // linked_list.addAtHead(6);
+  // linked_list.addAtTail(4);
+  // std::cout << linked_list.get(4) << std::endl;
+  // linked_list.addAtHead(4);
+  // linked_list.addAtIndex(5, 0);
+  // linked_list.addAtHead(6);
+  // linked_list.addAtIndex(1, 100);
+  // linked_list.addAtIndex(1, 200);
+  // std::cout << linked_list.get(0) << std::endl;
+  // std::cout << linked_list.get(1) << std::endl;
+  // linked_list.show();
   linked_list.addAtHead(1);
   linked_list.addAtTail(3);
   linked_list.addAtIndex(1, 2);
-  linked_list.addAtIndex(1, 100);
-  linked_list.addAtIndex(1, 200);
-  std::cout << linked_list.get(0) << std::endl;
+  linked_list.show();
+  // std::cout << linked_list.get(1) << std::endl;
+  // std::cout << linked_list.get(2) << std::endl;
+  linked_list.deleteAtIndex(1);
+  linked_list.show();
   std::cout << linked_list.get(1) << std::endl;
-  std::cout << linked_list.get(2) << std::endl;
-  linked_list.show();
-  linked_list.deleteAtIndex(2);
-  linked_list.show();
 }
