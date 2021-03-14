@@ -1,4 +1,11 @@
 """
+This is the famous problem called "Count inversions"
+
+Reference:
+Count Inversions in an array -- Geek for geeks
+https://www.hackerrank.com/challenges/ctci-merge-sort/problem
+
+Challedge:
 https://leetcode.com/problems/count-of-smaller-numbers-after-self/
 """
 # def howManySwaps(arr):
